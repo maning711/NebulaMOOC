@@ -1,5 +1,6 @@
 package com.nebula.mooc.webserver.util;
 
+import org.csource.common.MyException;
 import org.csource.fastdfs.StorageClient;
 import org.csource.fastdfs.StorageServer;
 import org.csource.fastdfs.TrackerClient;
@@ -23,14 +24,14 @@ public class FastDFSUtil {
     @Autowired
     private TrackerClient trackerClient;
 
-    private StorageClient getImageClient() throws IOException {
-        TrackerServer trackerServer = trackerClient.getConnection();
+    private StorageClient getImageClient() throws IOException, MyException {
+        TrackerServer trackerServer = trackerClient.getTrackerServer();
         StorageServer storageServer = trackerClient.getStoreStorage(trackerServer, "image");
         return new StorageClient(trackerServer, storageServer);
     }
 
-    private StorageClient getVideoClient() throws IOException {
-        TrackerServer trackerServer = trackerClient.getConnection();
+    private StorageClient getVideoClient() throws IOException, MyException {
+        TrackerServer trackerServer = trackerClient.getTrackerServer();
         StorageServer storageServer = trackerClient.getStoreStorage(trackerServer, "video");
         return new StorageClient(trackerServer, storageServer);
     }
